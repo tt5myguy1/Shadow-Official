@@ -49,11 +49,17 @@
       border-radius: 25px;
       border: 3px solid #1e6bff;
       margin-bottom: 10px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      color: #1e6bff;
+      overflow: hidden;
+    }
+
+    .icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
     }
 
     .game-title {
@@ -73,9 +79,9 @@
 
   <script>
     const games = [
-      { name: "Sample Game 1", icon: "🎮", link: "#" },
-      { name: "Sample Game 2", icon: "⭐", link: "#" },
-      { name: "Sample Game 3", icon: "⚔️", link: "#" }
+      { name: "Sample Game 1", img: "images/game1.png", link: "#" },
+      { name: "Sample Game 2", img: "images/game2.png", link: "#" },
+      { name: "Sample Game 3", img: "images/game3.png", link: "#" }
     ];
 
     function loadGames() {
@@ -88,7 +94,7 @@
         card.onclick = () => window.location.href = g.link;
 
         card.innerHTML = `
-          <div class='game-icon'>${g.icon}</div>
+          <div class='game-icon'><img src="${g.img}" class="icon-img" /></div>
           <div class='game-title'>${g.name}</div>
         `;
 
