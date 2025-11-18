@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f2ff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #1e6bff;
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 25px;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .game-card {
+      background: white;
+      border-radius: 25px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+
+    .game-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 25px;
+      border: 3px solid #1e6bff;
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #1e6bff;
+    }
+
+    .game-title {
+      font-size: 1rem;
+      color: #003d99;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Game Hub</h1>
+
+  <div class="game-grid" id="gameGrid">
+    <!-- Games auto-generated here -->
+  </div>
+
+  <script>
+    const games = [
+      { name: "Sample Game 1", icon: "🎮", link: "#" },
+      { name: "Sample Game 2", icon: "⭐", link: "#" },
+      { name: "Sample Game 3", icon: "⚔️", link: "#" }
+    ];
+
+    function loadGames() {
+      const grid = document.getElementById("gameGrid");
+      grid.innerHTML = "";
+
+      games.forEach(g => {
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.onclick = () => window.location.href = g.link;
+
+        card.innerHTML = `
+          <div class='game-icon'>${g.icon}</div>
+          <div class='game-title'>${g.name}</div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    loadGames();
+  </script>
+</body>
+</html>
