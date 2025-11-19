@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <button>DISCORD!</button>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shadow</title>
+  <title>Game Hub</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -68,13 +67,44 @@
       color: #003d99;
       font-weight: bold;
     }
+  .topbar {
+      width: 90%;
+      max-width: 900px;
+      background: #1e6bff;
+      padding: 12px 20px;
+      border-radius: 25px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      filter: brightness(0) invert(1);
+      transition: 0.2s;
+    }
+
+    .nav-icon:hover {
+      transform: scale(1.15);
+    }
+
   </style>
 </head>
 <body>
 
-  <h1>Shadow (Prototype V1)</h1>
-  <h2>YOUR PROGRESS SAVES!!! TAKE THAT SAKURA</h2>
-  <h3>!!ATTENTION LIGHTSPPED!! It seems that the Lightspeed system is updating their system and starting to figure out what's going on. Because of this, I believe they are starting to block HTML (which is how most of these games run), so a lot of these games MAY NOT WORK!!! Please join the discord by clicking the link in the top left of the corner, and report which game doesn't work for you, along with what filtering system you use.<h3>
+  <!-- Top Navigation Bar -->
+  <div class="topbar">
+    <img src="images/icon-controller.png" class="nav-icon" />
+    <img src="images/icon-tv.png" class="nav-icon" />
+    <img src="images/icon-internet.png" class="nav-icon" />
+    <img src="images/icon-more.png" class="nav-icon" />
+  </div>
+
+  <h1>Game Hub</h1>
 
   <div class="game-grid" id="gameGrid">
     <!-- Games auto-generated here -->
@@ -82,30 +112,9 @@
 
   <script>
     const games = [
-      { name: "Baldi's Basics Plus", img: "images/BaldisBasicsPlus.webp", link: "g/BaldisBasicsPlus.html" },
-      { name: "BLOODMONEY", img: "images/bloodmoney.webp", link: "g/BLOODMONEY!.html" },
-      { name: "Bad Parenting", img: "images/BpTB.webp", link: "g/Bad Parenting 1.html" },
-      { name: "Basket Battle", img: "images/basketbattles.png", link: "g/Basket Battle.html" },
-      { name: "Bendy and the Ink Machine", img: "images/Bendy.jpg", link: "g/Bendy and the Ink Machine.html" },
-      { name: "BitLife", img: "images/blife.webp", link: "g/B1tLife.html" },
-      { name: "Buckshot Roulette", img: "images/blife.webp", link: "g/Buckshot Roulette.html" },
-      { name: "Crazy Cars", img: "images/crazycars.webp", link: "g/Crazy Cars.html" },
-      { name: "Cuphead", img: "images/cuphead.jpg", link: "g/Cuphead.html" },
-      { name: "FNF VS IMPOSTER V4", img: "images/FNFVSIMPOSTERV4.jpg", link: "g/Friday Night Funkin VS Impostor v4.html" },
-      { name: "FNF VS Hit Single Real", img: "images/HitSingleReal.png", link: "g/Friday Night Funkin'_ Hit Single Real.html" },
-      { name: "FNF VS Tricky", img: "images/Tricky.jpg", link: "g/Friday Night Funkin'_ vs. Tricky.html" },
-      { name: "Friday Night Funkin'", img: "images/FNF.webp", link: "g/Friday Night Funkin.html" },
-      { name: "Getting Over It", img: "images/GettingOverIt.webp", link: "g/Getting Over It with Bennett Foddy.html" },
-      { name: "Google Fued", img: "images/GoogleFued.jpg", link: "g/Google Fued.html" },
-      { name: "Hollow Knight", img: "images/HallowNight.jpg", link: "g/Hollow Knight.html" },
-      { name: "Kindergarden", img: "images/Kindergarden.jpg", link: "g/Kindergarten.html" },
-      { name: "Kindergarden 2", img: "images/Kindergarden2.jpg", link: "g/Kindergarten 2.html" },
-      { name: "Kindergarden 3", img: "images/Kindergarden3.webp", link: "g/Kindergarten 3.html" },
-      { name: "Learn to fly", img: "images/LearnToFly.jpg", link: "g/Learn to Fly.html" },
-      { name: "Learn to fly 2", img: "images/LearnToFly2.jpg", link: "g/Learn to Fly 2.html" },
-      { name: "Learn to fly 3", img: "images/LearnToFly3.png", link: "g/Learn to Fly 3.html" },
-      { name: "Minecraft 1.12.2", img: "images/mc.png", link: "g/Minecraft 1.12.2.html" },
-      { name: "Minecraft 1.21.4", img: "images/mc.png", link: "g/Minecraft 1.21.4.html" },
+      { name: "Sample Game 1", img: "images/game1.png", link: "#" },
+      { name: "Sample Game 2", img: "images/game2.png", link: "#" },
+      { name: "Sample Game 3", img: "images/game3.png", link: "#" }
     ];
 
     function loadGames() {
