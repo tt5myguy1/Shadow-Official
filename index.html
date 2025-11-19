@@ -5,113 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Game Hub</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #e8f2ff;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    body { font-family: Arial, sans-serif; background: #e8f2ff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { color: #1e6bff; font-size: 3rem; margin-bottom: 30px; }
 
-    h1 {
-      color: #1e6bff;
-      font-size: 3rem;
-      margin-bottom: 30px;
-    }
+    .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; width: 90%; max-width: 900px; }
+    .game-card { background: white; border-radius: 25px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.2s; cursor: pointer; }
+    .game-card:hover { transform: scale(1.05); }
+    .game-icon { width: 80px; height: 80px; border-radius: 25px; border: 3px solid #1e6bff; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .icon-img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+    .game-title { font-size: 1rem; color: #003d99; font-weight: bold; }
 
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 25px;
-      width: 90%;
-      max-width: 900px;
-    }
+    .topbar { width: 90%; max-width: 900px; background: #1e6bff; padding: 12px 20px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .nav-icon { width: 28px; height: 28px; cursor: pointer; filter: brightness(0) invert(1); transition: 0.2s; }
+    .nav-icon:hover { transform: scale(1.15); }
 
-    .game-card {
-      background: white;
-      border-radius: 25px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.2s;
-      cursor: pointer;
-    }
+    .more-btn { width: 200px; padding: 15px; margin: 10px; background:#1e6bff; color:white; border:none; font-size:1.2rem; border-radius:20px; cursor:pointer; transition:0.2s; }
+    .more-btn:hover { transform: scale(1.08); }
 
-    .game-card:hover {
-      transform: scale(1.05);
-    }
-
-    .game-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 25px;
-      border: 3px solid #1e6bff;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .icon-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 20px;
-    }
-
-    .game-title {
-      font-size: 1rem;
-      color: #003d99;
-      font-weight: bold;
-    }
-  .topbar {
-      width: 90%;
-      max-width: 900px;
-      background: #1e6bff;
-      padding: 12px 20px;
-      border-radius: 25px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .nav-icon {
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      filter: brightness(0) invert(1);
-      transition: 0.2s;
-    }
-
-    .nav-icon:hover {
-      transform: scale(1.15);
-    }
-
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .video-card { background:white; border-radius:20px; padding:15px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.1); cursor:pointer; transition:0.2s; }
+    .video-card:hover { transform: scale(1.05); }
+    .video-thumb { width:100%; border-radius:15px; margin-bottom:10px; }
+    .video-title { font-size:1rem; color:#003d99; font-weight:bold; }
   </style>
 </head>
 <body>
 
   <!-- Top Navigation Bar -->
   <div class="topbar">
-    <img src="images/Icons/Bar/Controller.png" class="nav-icon" />
-    <img src="images/Icons/Bar/TV.jpg" class="nav-icon" />
-    <img src="images/Icons/Bar/Internet.png" class="nav-icon" />
-    <img src="images/Icons/Bar/Plus.webp" class="nav-icon" />
+    <img src="images/icon-controller.png" class="nav-icon" />
+    <img src="images/icon-tv.png" class="nav-icon" />
+    <img src="images/icon-internet.png" class="nav-icon" />
+    <img src="images/icon-more.png" class="nav-icon" />
   </div>
 
   <h1>Game Hub</h1>
-  <h3>I do not own any games, or videos on this website. Every game is made by gn-math. Videos are made by YouTubers on youtuber. I am not responsible if you get in trouble by your teacher while using this website.</h3>
 
-  <div class="game-grid" id="gameGrid">
-    <!-- Games auto-generated here -->
+  <!-- Game Section -->
+  <div class="game-grid" id="gameGrid"></div>
+
+  <!-- Video Section -->
+  <div id="videoSection" style="display:none; width:90%; max-width:900px; text-align:center;">
+    <h1 style="color:#1e6bff;">Videos</h1>
+    <div id="videoGrid" class="video-grid"></div>
+  </div>
+
+  <!-- Internet Coming Soon Section -->
+  <div id="internetSection" style="display:none; width:90%; max-width:900px; text-align:center;">
+    <h1 style="color:#1e6bff; font-size:3rem; margin-top:40px;">COMING SOON!</h1>
+  </div>
+
+  <!-- More Menu Section -->
+  <div id="moreSection" style="display:none; width:90%; max-width:900px; text-align:center; margin-top:30px;">
+    <button class="more-btn">Links</button>
+    <button class="more-btn">Discord</button>
+    <button class="more-btn">Extra</button>
+    <button class="more-btn">Online Chat</button>
   </div>
 
   <script>
+    // --- Games Data ---
     const games = [
       { name: "Baldi's Basics Plus", img: "images/BaldisBasicsPlus.webp", link: "g/BaldisBasicsPlus.html" },
       { name: "BLOODMONEY", img: "images/bloodmoney.webp", link: "g/BLOODMONEY!.html" },
@@ -136,28 +89,60 @@
       { name: "Learn to fly 2", img: "images/LearnToFly2.jpg", link: "g/Learn to Fly 2.html" },
       { name: "Learn to fly 3", img: "images/LearnToFly3.png", link: "g/Learn to Fly 3.html" },
       { name: "Minecraft 1.12.2", img: "images/mc.png", link: "g/Minecraft 1.12.2.html" },
-      { name: "Minecraft 1.21.4", img: "images/mc.png", link: "g/Minecraft 1.21.4.html" },
+      { name: "Minecraft 1.21.4", img: "images/mc.png", link: "g/Minecraft 1.21.4.html" }
     ];
 
     function loadGames() {
       const grid = document.getElementById("gameGrid");
       grid.innerHTML = "";
-
       games.forEach(g => {
         const card = document.createElement("div");
         card.className = "game-card";
         card.onclick = () => window.location.href = g.link;
-
-        card.innerHTML = `
-          <div class='game-icon'><img src="${g.img}" class="icon-img" /></div>
-          <div class='game-title'>${g.name}</div>
-        `;
-
+        card.innerHTML = `<div class='game-icon'><img src="${g.img}" class="icon-img" /></div><div class='game-title'>${g.name}</div>`;
         grid.appendChild(card);
       });
     }
 
     loadGames();
+
+    // --- Sections Handling ---
+    const sections = {
+      games: document.getElementById('gameGrid'),
+      videos: document.getElementById('videoSection'),
+      internet: document.getElementById('internetSection'),
+      more: document.getElementById('moreSection')
+    };
+
+    function showSection(name) {
+      Object.values(sections).forEach(sec => sec.style.display = 'none');
+      sections[name].style.display = 'block';
+      if(name === 'videos') loadVideos();
+    }
+
+    const navIcons = document.querySelectorAll('.nav-icon');
+    navIcons[0].onclick = () => showSection('games');
+    navIcons[1].onclick = () => showSection('videos');
+    navIcons[2].onclick = () => showSection('internet');
+    navIcons[3].onclick = () => showSection('more');
+
+    // --- Videos Auto Load ---
+    const videos = [
+      { title: "Sample Video 1", file: "v/video1.mp4", thumbnail: "images/video1.png" },
+      { title: "Sample Video 2", file: "v/video2.mp4", thumbnail: "images/video2.png" }
+    ];
+
+    function loadVideos() {
+      const grid = document.getElementById('videoGrid');
+      grid.innerHTML = '';
+      videos.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `<video width='100%' controls poster='${v.thumbnail}'><source src='${v.file}' type='video/mp4'></video><div class='video-title'>${v.title}</div>`;
+        grid.appendChild(card);
+      });
+    }
   </script>
+
 </body>
 </html>
