@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particles</title>
+<style>
+  body, html { margin: 0; padding: 0; overflow: hidden; background: #e8f2ff; }
+  canvas { display: block; position: absolute; top: 0; left: 0; }
+</style>
+</head>
+<body>
+<canvas id="particleCanvas"></canvas>
+<script>
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  class Bubble {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 20 + 10;
+      this.speedY = Math.random() * 1 + 0.5;
+      this.speedX = Math.random() * 0.5 - 0.25;
+      this.color = 'rgba(128,128,128,0.3)';
+    }
+    update() {
+      this.y -= this.speedY;
+      this.x += this.speedX;
+      if(this.y + this.radius < 0) this.y = canvas.height + this.radius;
+      if(this.x - this.radius > canvas.width) this.x = -this.radius;
+      if(this.x + this.radius < 0) this.x = canvas.width + this.radius;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+  const bubbles = [];
+  for(let i=0; i<50; i++) bubbles.push(new Bubble());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    bubbles.forEach(b => { b.update(); b.draw(); });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+</body>
+</html>
