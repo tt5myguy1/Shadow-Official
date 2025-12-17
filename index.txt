@@ -41,8 +41,15 @@
 
   <h1>Shadow [ALPHA]</h1>
   <h2>[This is early access. Not the final release. (I will add more games still though)]</h2>
-  <h3>Made by tt5 my guy</h3>
-  <h3>V0.1.1</h3>
+  <h3>Given away to Treyton (Don't worry I won't ruin it haha)</h3>
+  <h3>V0.1.3</h3>
+  <h2>RECENT UPDATES</h2>
+  <h3>V0.0.0 - Alpha Release</h3>
+  <h3>V0.1.0 - Added Bar</h3>
+  <h3>V0.1.1 - Added Extra text</h3>
+  <h3>V0.1.2 - Website Shutdown</h3>
+  <h3>V0.1.3 - Given away to someone + Website back up + Extra Text</h3>
+  <h2>There is some games without thumbnails. I'll get it fixed soon. Maybe.</h2>
 
   <!-- Game Section -->
   <div class="game-grid" id="gameGrid"></div>
@@ -69,6 +76,9 @@
   <script>
     // --- Games Data ---
     const games = [
+      { name: "Request A Game/App", img: "images/none.webp", link: "g/Request.html" },
+      { name: "Watch + Download Youtube Videos", img: "images/none.webp", link: "g/cutyt.html" },
+      { name: "2048", img: "images/none.webp", link: "g/2048.html" },
       { name: "Baldi's Basics Plus", img: "images/BaldisBasicsPlus.webp", link: "g/BaldisBasicsPlus.html" },
       { name: "BLOODMONEY", img: "images/bloodmoney.webp", link: "g/BLOODMONEY!.html" },
       { name: "Bad Parenting", img: "images/BpTB.webp", link: "g/Bad Parenting 1.html" },
@@ -119,11 +129,11 @@
       { name: "Soundboard", img: "images/redbutton.webp", link: "g/Soundboard.html" },
       { name: "Subway Surfers", img: "images/subwaysurfers.jpg", link: "g/Subway Surfers_ San Francisco.html" },
       { name: "Superhot", img: "images/superhot.png", link: "g/Superhot.html" },
-      { name: "Survival Race", img: "images/survival race.webp", link: "broken.html" },
+      { name: "Survival Race", img: "images/survival race.webp", link: "g/Survival Race.html" },
       { name: "That's Not My Neighbor", img: "images/add photo.png", link: "g/That's Not My Neighbor.html" },
       { name: "The Impossible Quiz", img: "images/add photo.png", link: "g/The Impossible Quiz.html" },
       { name: "The man in the window", img: "images/add photo.png", link: "broken.html" },
-      { name: "Undertale Yellow", img: "images/undertale yellow.webp", link: "broken.html" },
+      { name: "Undertale Yellow", img: "images/undertale yellow.webp", link: "g/Undertale Yellow.html" },
       { name: "Wordle", img: "images/wordle.webp", link: "g/Wordle.html" },
     ];
 
@@ -163,8 +173,8 @@
 
     // --- Videos Auto Load ---
     const videos = [
-      { title: "Sample Video 1", file: "v/video1.mp4", thumbnail: "images/video1.png" },
-      { title: "Sample Video 2", file: "v/video2.mp4", thumbnail: "images/video2.png" }
+      { title: "Video 1 that I'm gonna add soon", file: "v/video1.mp4", thumbnail: "images/video1.png" },
+      { title: "and uhhh video 2", file: "v/video2.mp4", thumbnail: "images/video2.png" }
     ];
 
     function loadVideos() {
