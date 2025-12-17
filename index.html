@@ -1,193 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shadow [ALPHA]</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #717171; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-    h1 { color: #000000; font-size: 3rem; margin-bottom: 30px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow [ALPHA]</title>
 
-    .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; width: 90%; max-width: 900px; }
-    .game-card { background: white; border-radius: 25px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.2s; cursor: pointer; }
-    .game-card:hover { transform: scale(1.05); }
-    .game-icon { width: 80px; height: 80px; border-radius: 25px; border: 3px solid #000000; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .icon-img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
-    .game-title { font-size: 1rem; color: #000000; font-weight: bold; }
+<style>
+:root {
+  --bg1:#0f2027;
+  --bg2:#203a43;
+  --bg3:#2c5364;
+  --card:#ffffff;
+  --accent:#4aa3ff;
+}
 
-    .topbar { width: 90%; max-width: 900px; background: #3B3B3B; padding: 12px 20px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    .nav-icon { width: 28px; height: 28px; cursor: pointer; filter: brightness(0) invert(1); transition: 0.2s; }
-    .nav-icon:hover { transform: scale(1.15); }
+* { box-sizing:border-box; }
 
-    .more-btn { width: 200px; padding: 15px; margin: 10px; background:#3D3D3D; color:black; border:none; font-size:1.2rem; border-radius:20px; cursor:pointer; transition:0.2s; }
-    .more-btn:hover { transform: scale(1.08); }
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  min-height:100vh;
+  background: linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .video-card { background:white; border-radius:20px; padding:15px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.1); cursor:pointer; transition:0.2s; }
-    .video-card:hover { transform: scale(1.05); }
-    .video-thumb { width:100%; border-radius:15px; margin-bottom:10px; }
-    .video-title { font-size:1rem; color:#000000; font-weight:bold; }
-  </style>
+/* ===== TOP BAR ===== */
+.topbar {
+  position:sticky;
+  top:15px;
+  width:92%;
+  max-width:1100px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius:30px;
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  margin-bottom:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+.nav-icon {
+  width:28px;
+  height:28px;
+  cursor:pointer;
+  filter:brightness(0) invert(1);
+  transition:0.2s;
+}
+.nav-icon:hover { transform:scale(1.2); }
+
+/* ===== HEADER ===== */
+.header {
+  text-align:center;
+  margin-bottom:25px;
+}
+.header h1 {
+  font-size:3rem;
+  margin:10px 0;
+}
+.header p {
+  opacity:0.85;
+  margin:4px 0;
+}
+
+/* ===== PAGES ===== */
+.page {
+  display:none;
+  width:92%;
+  max-width:1100px;
+}
+.page.active { display:block; }
+
+/* ===== GAME GRID ===== */
+.game-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:25px;
+}
+
+.game-card {
+  background:var(--card);
+  color:black;
+  border-radius:26px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  transition:0.25s;
+}
+.game-card:hover {
+  transform:translateY(-6px) scale(1.03);
+}
+
+.game-icon {
+  width:90px;
+  height:90px;
+  border-radius:24px;
+  border:3px solid var(--accent);
+  margin:0 auto 10px;
+  overflow:hidden;
+}
+.icon-img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.game-title {
+  font-weight:bold;
+  font-size:0.95rem;
+}
+
+/* ===== VIDEOS ===== */
+.video-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.video-card {
+  background:white;
+  border-radius:24px;
+  padding:15px;
+  color:black;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+.video-title {
+  margin-top:8px;
+  font-weight:bold;
+}
+
+/* ===== MORE BUTTONS ===== */
+.more-wrap {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+}
+
+.more-btn {
+  padding:18px 28px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:26px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  box-shadow:0 6px 18px rgba(0,0,0,0.2);
+  transition:0.25s;
+}
+.more-btn:hover { transform:scale(1.08); }
+</style>
 </head>
+
 <body>
 
-  <!-- Top Navigation Bar -->
-  <div class="topbar">
-    <img src="images/Icons/Bar/Controller.png" class="nav-icon" />
-    <img src="images/Icons/Bar/TV.jpg" class="nav-icon" />
-    <img src="images/Icons/Bar/Internet.png" class="nav-icon" />
-    <img src="images/Icons/Bar/Plus.webp" class="nav-icon" />
-  </div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <img src="images/Icons/Bar/Controller.png" class="nav-icon" onclick="showPage('games')">
+  <img src="images/Icons/Bar/TV.jpg" class="nav-icon" onclick="showPage('videos')">
+  <img src="images/Icons/Bar/Internet.png" class="nav-icon" onclick="showPage('internet')">
+  <img src="images/Icons/Bar/Plus.webp" class="nav-icon" onclick="showPage('more')">
+</div>
 
+<!-- HEADER -->
+<div class="header">
   <h1>Shadow [ALPHA]</h1>
-  <h2>[This is early access. Not the final release. (I will add more games still though)]</h2>
-  <h3>Given away to Treyton (Don't worry I won't ruin it haha)</h3>
-  <h3>V0.1.3</h3>
-  <h2>RECENT UPDATES</h2>
-  <h3>V0.0.0 - Alpha Release</h3>
-  <h3>V0.1.0 - Added Bar</h3>
-  <h3>V0.1.1 - Added Extra text</h3>
-  <h3>V0.1.2 - Website Shutdown</h3>
-  <h3>V0.1.3 - Given away to someone + Website back up + Extra Text</h3>
-  <h2>There is some games without thumbnails. I'll get it fixed soon. Maybe.</h2>
+  <p>Prototype • V0.2.3</p>
+  <p>Given away to Treyton</p>
+</div>
 
-  <!-- Game Section -->
+<!-- GAMES -->
+<div class="page active" id="games">
   <div class="game-grid" id="gameGrid"></div>
+</div>
 
-  <!-- Video Section -->
-  <div id="videoSection" style="display:none; width:90%; max-width:900px; text-align:center;">
-    <h1 style="color:#000000;">Videos</h1>
-    <div id="videoGrid" class="video-grid"></div>
-  </div>
+<!-- VIDEOS -->
+<div class="page" id="videos">
+  <h2>Videos</h2>
+  <div class="video-grid" id="videoGrid"></div>
+</div>
 
-  <!-- Internet Coming Soon Section -->
-  <div id="internetSection" style="display:none; width:90%; max-width:900px; text-align:center;">
-    <h1 style="color:#000000; font-size:3rem; margin-top:40px;">COMING SOON!</h1>
-  </div>
+<!-- INTERNET -->
+<div class="page" id="internet">
+  <h1 style="text-align:center;margin-top:60px;">COMING SOON!</h1>
+</div>
 
-  <!-- More Menu Section -->
-  <div id="moreSection" style="display:none; width:90%; max-width:900px; text-align:center; margin-top:30px;">
+<!-- MORE -->
+<div class="page" id="more">
+  <div class="more-wrap">
     <button class="more-btn">Links</button>
     <button class="more-btn">Discord</button>
     <button class="more-btn">Extra</button>
     <button class="more-btn">Online Chat</button>
   </div>
+</div>
 
-  <script>
-    // --- Games Data ---
-    const games = [
-      { name: "Request A Game/App", img: "images/none.webp", link: "g/Request.html" },
-      { name: "Watch + Download Youtube Videos", img: "images/none.webp", link: "g/cutyt.html" },
-      { name: "2048", img: "images/none.webp", link: "g/2048.html" },
-      { name: "Baldi's Basics Plus", img: "images/BaldisBasicsPlus.webp", link: "g/BaldisBasicsPlus.html" },
-      { name: "BLOODMONEY", img: "images/bloodmoney.webp", link: "g/BLOODMONEY!.html" },
-      { name: "Bad Parenting", img: "images/BpTB.webp", link: "g/Bad Parenting 1.html" },
-      { name: "Basket Battle", img: "images/basketbattles.png", link: "g/Basket Battle.html" },
-      { name: "Bendy and the Ink Machine", img: "images/Bendy.jpg", link: "g/Bendy and the Ink Machine.html" },
-      { name: "BitLife", img: "images/blife.webp", link: "g/B1tLife.html" },
-      { name: "Buckshot Roulette", img: "images/blife.webp", link: "g/Buckshot Roulette.html" },
-      { name: "Crazy Cars", img: "images/crazycars.webp", link: "g/Crazy Cars.html" },
-      { name: "Cuphead", img: "images/cuphead.jpg", link: "g/Cuphead.html" },
-      { name: "FNF VS IMPOSTER V4", img: "images/FNFVSIMPOSTERV4.jpg", link: "g/Friday Night Funkin VS Impostor v4.html" },
-      { name: "FNF VS Hit Single Real", img: "images/HitSingleReal.png", link: "g/Friday Night Funkin'_ Hit Single Real.html" },
-      { name: "FNF VS Tricky", img: "images/Tricky.jpg", link: "g/Friday Night Funkin'_ vs. Tricky.html" },
-      { name: "Friday Night Funkin'", img: "images/FNF.webp", link: "g/Friday Night Funkin.html" },
-      { name: "Getting Over It", img: "images/GettingOverIt.webp", link: "g/Getting Over It with Bennett Foddy.html" },
-      { name: "Google Fued", img: "images/GoogleFued.jpg", link: "g/Google Fued.html" },
-      { name: "Hollow Knight", img: "images/HallowNight.jpg", link: "g/Hollow Knight.html" },
-      { name: "Kindergarden", img: "images/Kindergarden.jpg", link: "g/Kindergarten.html" },
-      { name: "Kindergarden 2", img: "images/Kindergarden2.jpg", link: "g/Kindergarten 2.html" },
-      { name: "Kindergarden 3", img: "images/Kindergarden3.webp", link: "g/Kindergarten 3.html" },
-      { name: "Lama Loop", img: "images/addphoto.jpg", link: "g/Lama Loop.html" },
-      { name: "Learn to fly", img: "images/LearnToFly.jpg", link: "g/Learn to Fly.html" },
-      { name: "Learn to fly 2", img: "images/LearnToFly2.jpg", link: "g/Learn to Fly 2.html" },
-      { name: "Learn to fly 3", img: "images/LearnToFly3.png", link: "g/Learn to Fly 3.html" },
-      { name: "Minecraft 1.12.2", img: "images/mc.png", link: "g/Minecraft 1.12.2.html" },
-      { name: "Minecraft 1.21.4", img: "images/mc.png", link: "g/Minecraft 1.21.4.html" },
-      { name: "Moto X3M", img: "images/motoxm.jpg", link: "g/Moto X3M.html" },
-      { name: "Moto X3M 2", img: "images/motoxm2.jpg", link: "g/Moto X3M 2.html" },
-      { name: "Moto X3M 3", img: "images/motoxm3.webp", link: "g/Moto X3M 3.html" },
-      { name: "Moto X3M Pool Party", img: "images/motoxmpoolparty.webp", link: "g/Moto X3M Pool Party.html" },
-      { name: "Moto X3M Winter", img: "images/motoxmwinter.jpg", link: "g/Moto X3M Winter.html" },
-      { name: "Moto X3M Spooky", img: "images/motoxmspooky.png", link: "g/Moto X3M Spooky.html" },
-      { name: "OvO", img: "images/ovo.webp", link: "g/OvO.html" },
-      { name: "OvO 2", img: "images/ovo2.webp", link: "g/OvO 2.html" },
-      { name: "OvO 3 Dimensions", img: "images/ovo3.webp", link: "g/OvO 3 Dimensions.html" },
-      { name: "People Playground", img: "images/peopleplayground.jpg", link: "g/People Playground.html" },
-      { name: "Pou", img: "images/pou.webp", link: "g/Pou.html" },
-      { name: "R.E.P.O.", img: "images/repo.webp", link: "g/R.E.P.O.html" },
-      { name: "Run", img: "images/run1.webp", link: "g/Run 1.html" },
-      { name: "Run 2", img: "images/run2.jpg", link: "g/Run 2.html" },
-      { name: "Run 3", img: "images/run3.webp", link: "g/Run 3.html" },
-      { name: "Sandtris", img: "images/sandtris.webp", link: "g/Sandtris.html" },
-      { name: "Schoolboy Runaway", img: "images/schoolboyrunaway.webp", link: "g/Schoolboy Runaway.html" },
-      { name: "Slither.io", img: "images/slitherio.webp", link: "g/Slither.io.html" },
-      { name: "Slope", img: "images/slope.webp", link: "g/Slope.html" },
-      { name: "Slope 2", img: "images/slope2.webp", link: "g/Slope 2.html" },
-      { name: "Solar Smash", img: "images/solar smash.webp", link: "g/Solar Smash.html" },
-      { name: "Sonic.EXE (ORIGINAL)", img: "images/sonicexe.webp", link: "g/Sonic.EXE (ORIGINAL).html" },
-      { name: "Soundboard", img: "images/redbutton.webp", link: "g/Soundboard.html" },
-      { name: "Subway Surfers", img: "images/subwaysurfers.jpg", link: "g/Subway Surfers_ San Francisco.html" },
-      { name: "Superhot", img: "images/superhot.png", link: "g/Superhot.html" },
-      { name: "Survival Race", img: "images/survival race.webp", link: "g/Survival Race.html" },
-      { name: "That's Not My Neighbor", img: "images/add photo.png", link: "g/That's Not My Neighbor.html" },
-      { name: "The Impossible Quiz", img: "images/add photo.png", link: "g/The Impossible Quiz.html" },
-      { name: "The man in the window", img: "images/add photo.png", link: "broken.html" },
-      { name: "Undertale Yellow", img: "images/undertale yellow.webp", link: "g/Undertale Yellow.html" },
-      { name: "Wordle", img: "images/wordle.webp", link: "g/Wordle.html" },
-    ];
+<script>
+// ===== PAGE SWITCH =====
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='videos') loadVideos();
+}
 
-    function loadGames() {
-      const grid = document.getElementById("gameGrid");
-      grid.innerHTML = "";
-      games.forEach(g => {
-        const card = document.createElement("div");
-        card.className = "game-card";
-        card.onclick = () => window.location.href = g.link;
-        card.innerHTML = `<div class='game-icon'><img src="${g.img}" class="icon-img" /></div><div class='game-title'>${g.name}</div>`;
-        grid.appendChild(card);
-      });
-    }
+// ===== GAMES =====
+const games = [
+  { name: "Request A Game/App", img: "images/none.webp", link: "g/Request.html" },
+  { name: "Watch + Download Youtube Videos", img: "images/none.webp", link: "g/cutyt.html" },
+  { name: "2048", img: "images/none.webp", link: "g/2048.html" },
+  { name: "Baldi's Basics Plus", img: "images/BaldisBasicsPlus.webp", link: "g/BaldisBasicsPlus.html" },
+  { name: "BLOODMONEY", img: "images/bloodmoney.webp", link: "g/BLOODMONEY!.html" },
+  { name: "Bad Parenting", img: "images/BpTB.webp", link: "g/Bad Parenting 1.html" },
+  { name: "Basket Battle", img: "images/basketbattles.png", link: "g/Basket Battle.html" },
+  { name: "Bendy and the Ink Machine", img: "images/Bendy.jpg", link: "g/Bendy and the Ink Machine.html" },
+  { name: "BitLife", img: "images/blife.webp", link: "g/B1tLife.html" },
+  { name: "Buckshot Roulette", img: "images/blife.webp", link: "g/Buckshot Roulette.html" },
+  { name: "Crazy Cars", img: "images/crazycars.webp", link: "g/Crazy Cars.html" },
+  { name: "Cuphead", img: "images/cuphead.jpg", link: "g/Cuphead.html" },
+  { name: "FNF VS IMPOSTER V4", img: "images/FNFVSIMPOSTERV4.jpg", link: "g/Friday Night Funkin VS Impostor v4.html" },
+  { name: "FNF VS Hit Single Real", img: "images/HitSingleReal.png", link: "g/Friday Night Funkin'_ Hit Single Real.html" },
+  { name: "FNF VS Tricky", img: "images/Tricky.jpg", link: "g/Friday Night Funkin'_ vs. Tricky.html" },
+  { name: "Friday Night Funkin'", img: "images/FNF.webp", link: "g/Friday Night Funkin.html" },
+  { name: "Getting Over It", img: "images/GettingOverIt.webp", link: "g/Getting Over It with Bennett Foddy.html" },
+  { name: "Google Fued", img: "images/GoogleFued.jpg", link: "g/Google Fued.html" },
+  { name: "Hollow Knight", img: "images/HallowNight.jpg", link: "g/Hollow Knight.html" },
+  { name: "Kindergarden", img: "images/Kindergarden.jpg", link: "g/Kindergarten.html" },
+  { name: "Kindergarden 2", img: "images/Kindergarden2.jpg", link: "g/Kindergarten 2.html" },
+  { name: "Kindergarden 3", img: "images/Kindergarden3.webp", link: "g/Kindergarten 3.html" },
+  { name: "Lama Loop", img: "images/addphoto.jpg", link: "g/Lama Loop.html" },
+  { name: "Learn to fly", img: "images/LearnToFly.jpg", link: "g/Learn to Fly.html" },
+  { name: "Learn to fly 2", img: "images/LearnToFly2.jpg", link: "g/Learn to Fly 2.html" },
+  { name: "Learn to fly 3", img: "images/LearnToFly3.png", link: "g/Learn to Fly 3.html" },
+  { name: "Minecraft 1.12.2", img: "images/mc.png", link: "g/Minecraft 1.12.2.html" },
+  { name: "Minecraft 1.21.4", img: "images/mc.png", link: "g/Minecraft 1.21.4.html" },
+  { name: "Moto X3M", img: "images/motoxm.jpg", link: "g/Moto X3M.html" },
+  { name: "Moto X3M 2", img: "images/motoxm2.jpg", link: "g/Moto X3M 2.html" },
+  { name: "Moto X3M 3", img: "images/motoxm3.webp", link: "g/Moto X3M 3.html" },
+  { name: "Moto X3M Pool Party", img: "images/motoxmpoolparty.webp", link: "g/Moto X3M Pool Party.html" },
+  { name: "Moto X3M Winter", img: "images/motoxmwinter.jpg", link: "g/Moto X3M Winter.html" },
+  { name: "Moto X3M Spooky", img: "images/motoxmspooky.png", link: "g/Moto X3M Spooky.html" },
+  { name: "OvO", img: "images/ovo.webp", link: "g/OvO.html" },
+  { name: "OvO 2", img: "images/ovo2.webp", link: "g/OvO 2.html" },
+  { name: "OvO 3 Dimensions", img: "images/ovo3.webp", link: "g/OvO 3 Dimensions.html" },
+  { name: "People Playground", img: "images/peopleplayground.jpg", link: "g/People Playground.html" },
+  { name: "Pou", img: "images/pou.webp", link: "g/Pou.html" },
+  { name: "R.E.P.O.", img: "images/repo.webp", link: "g/R.E.P.O.html" },
+  { name: "Run", img: "images/run1.webp", link: "g/Run 1.html" },
+  { name: "Run 2", img: "images/run2.jpg", link: "g/Run 2.html" },
+  { name: "Run 3", img: "images/run3.webp", link: "g/Run 3.html" },
+  { name: "Sandtris", img: "images/sandtris.webp", link: "g/Sandtris.html" },
+  { name: "Schoolboy Runaway", img: "images/schoolboyrunaway.webp", link: "g/Schoolboy Runaway.html" },
+  { name: "Slither.io", img: "images/slitherio.webp", link: "g/Slither.io.html" },
+  { name: "Slope", img: "images/slope.webp", link: "g/Slope.html" },
+  { name: "Slope 2", img: "images/slope2.webp", link: "g/Slope 2.html" },
+  { name: "Solar Smash", img: "images/solar smash.webp", link: "g/Solar Smash.html" },
+  { name: "Sonic.EXE (ORIGINAL)", img: "images/sonicexe.webp", link: "g/Sonic.EXE (ORIGINAL).html" },
+  { name: "Soundboard", img: "images/redbutton.webp", link: "g/Soundboard.html" },
+  { name: "Subway Surfers", img: "images/subwaysurfers.jpg", link: "g/Subway Surfers_ San Francisco.html" },
+  { name: "Superhot", img: "images/superhot.png", link: "g/Superhot.html" },
+  { name: "Survival Race", img: "images/survival race.webp", link: "g/Survival Race.html" },
+  { name: "That's Not My Neighbor", img: "images/add photo.png", link: "g/That's Not My Neighbor.html" },
+  { name: "The Impossible Quiz", img: "images/add photo.png", link: "g/The Impossible Quiz.html" },
+  { name: "The man in the window", img: "images/add photo.png", link: "broken.html" },
+  { name: "Undertale Yellow", img: "images/undertale yellow.webp", link: "g/Undertale Yellow.html" },
+  { name: "Wordle", img: "images/wordle.webp", link: "g/Wordle.html" },
+];
 
-    loadGames();
+function loadGames(){
+  const grid=document.getElementById('gameGrid');
+  grid.innerHTML='';
+  games.forEach(g=>{
+    const card=document.createElement('div');
+    card.className='game-card';
+    card.onclick=()=>location.href=g.link;
+    card.innerHTML=`
+      <div class="game-icon"><img src="${g.img}" class="icon-img"></div>
+      <div class="game-title">${g.name}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+loadGames();
 
-    // --- Sections Handling ---
-    const sections = {
-      games: document.getElementById('gameGrid'),
-      videos: document.getElementById('videoSection'),
-      internet: document.getElementById('internetSection'),
-      more: document.getElementById('moreSection')
-    };
+// ===== VIDEOS =====
+const videos = [
+  { title:"Video 1 that I'm gonna add soon", file:"v/video1.mp4", thumbnail:"images/video1.png" },
+  { title:"and uhhh video 2", file:"v/video2.mp4", thumbnail:"images/video2.png" }
+];
 
-    function showSection(name) {
-      Object.values(sections).forEach(sec => sec.style.display = 'none');
-      sections[name].style.display = 'block';
-      if(name === 'videos') loadVideos();
-    }
-
-    const navIcons = document.querySelectorAll('.nav-icon');
-    navIcons[0].onclick = () => showSection('games');
-    navIcons[1].onclick = () => showSection('videos');
-    navIcons[2].onclick = () => showSection('internet');
-    navIcons[3].onclick = () => showSection('more');
-
-    // --- Videos Auto Load ---
-    const videos = [
-      { title: "Video 1 that I'm gonna add soon", file: "v/video1.mp4", thumbnail: "images/video1.png" },
-      { title: "and uhhh video 2", file: "v/video2.mp4", thumbnail: "images/video2.png" }
-    ];
-
-    function loadVideos() {
-      const grid = document.getElementById('videoGrid');
-      grid.innerHTML = '';
-      videos.forEach(v => {
-        const card = document.createElement('div');
-        card.className = 'video-card';
-        card.innerHTML = `<video width='100%' controls poster='${v.thumbnail}'><source src='${v.file}' type='video/mp4'></video><div class='video-title'>${v.title}</div>`;
-        grid.appendChild(card);
-      });
-    }
-  </script>
+function loadVideos(){
+  const grid=document.getElementById('videoGrid');
+  grid.innerHTML='';
+  videos.forEach(v=>{
+    const card=document.createElement('div');
+    card.className='video-card';
+    card.innerHTML=`
+      <video width="100%" controls poster="${v.thumbnail}">
+        <source src="${v.file}" type="video/mp4">
+      </video>
+      <div class="video-title">${v.title}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+</script>
 
 </body>
 </html>
