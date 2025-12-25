@@ -153,6 +153,67 @@ body {
   box-shadow:0 6px 18px rgba(0,0,0,0.2);
   transition:0.25s;
 }
+
+/* ===== OVERLAY ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-box {
+  background: rgba(255,255,255,0.95);
+  color: black;
+  width: 80%;
+  max-width: 900px;
+  max-height: 80vh;
+  border-radius: 30px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  border: 3px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+}
+
+.close-btn {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* ===== LINKS GRID ===== */
+.links-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.link-item {
+  font-size: 1rem;
+}
+
+.link-item a {
+  color: #1e6bff;
+  text-decoration: underline;
+  font-weight: 600;
+}
 .more-btn:hover { transform:scale(1.08); }
 </style>
 </head>
@@ -193,11 +254,10 @@ body {
 <!-- MORE -->
 <div class="page" id="more">
   <div class="more-wrap">
-    <button class="more-btn">Links</button>
+    <button class="more-btn" onclick="openLinks()">Links</button>
     <button class="more-btn" onclick="window.open('https://discord.com/invite/MqcHwuaYfM', '_blank')">
      Discord
     </button>
-    <button class="more-btn">Extra</button>
     <button class="more-btn">Online Chat</button>
   </div>
 </div>
@@ -309,6 +369,44 @@ function loadVideos(){
     `;
     grid.appendChild(card);
   });
+}
+
+<!-- LINKS OVERLAY -->
+<div id="linksOverlay" class="overlay hidden">
+  <div class="overlay-box">
+    <button class="close-btn" onclick="closeLinks()">✕</button>
+    <h2>Useful Links</h2>
+
+    <div id="linksGrid" class="links-grid">
+      <!-- links auto-generated here -->
+    </div>
+  </div>
+</div>
+
+// ===== LINKS DATA =====
+const links = [
+  { text: "Official Website", url: "https://example.com" },
+  { text: "GitHub Repo", url: "https://github.com" },
+  { text: "Game Docs", url: "https://docs.example.com" },
+  { text: "Community Forum", url: "https://forum.example.com" },
+];
+
+function openLinks() {
+  const grid = document.getElementById("linksGrid");
+  grid.innerHTML = "";
+
+  links.forEach(l => {
+    const div = document.createElement("div");
+    div.className = "link-item";
+    div.innerHTML = `<a href="${l.url}" target="_blank">${l.text}</a>`;
+    grid.appendChild(div);
+  });
+
+  document.getElementById("linksOverlay").classList.remove("hidden");
+}
+
+function closeLinks() {
+  document.getElementById("linksOverlay").classList.add("hidden");
 }
 </script>
 
