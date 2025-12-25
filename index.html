@@ -262,12 +262,29 @@ body {
   </div>
 </div>
 
+<!-- LINKS OVERLAY -->
+<div id="linksOverlay" class="overlay hidden">
+  <div class="overlay-box">
+    <button class="close-btn" onclick="closeLinks()">✕</button>
+    <h2>Useful Links</h2>
+
+    <div id="linksGrid" class="links-grid">
+      <!-- links auto-generated here -->
+    </div>
+  </div>
+</div>
+
 <script>
 // ===== PAGE SWITCH =====
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if(id==='videos') loadVideos();
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p =>
+    p.classList.remove('active')
+  );
+
+  const page = document.getElementById(id);
+  if (page) page.classList.add('active');
+
+  if (id === 'videos') loadVideos();
 }
 
 // ===== GAMES =====
@@ -370,18 +387,6 @@ function loadVideos(){
     grid.appendChild(card);
   });
 }
-
-<!-- LINKS OVERLAY -->
-<div id="linksOverlay" class="overlay hidden">
-  <div class="overlay-box">
-    <button class="close-btn" onclick="closeLinks()">✕</button>
-    <h2>Useful Links</h2>
-
-    <div id="linksGrid" class="links-grid">
-      <!-- links auto-generated here -->
-    </div>
-  </div>
-</div>
 
 // ===== LINKS DATA =====
 const links = [
