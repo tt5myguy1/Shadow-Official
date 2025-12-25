@@ -215,6 +215,71 @@ body {
   font-weight: 600;
 }
 .more-btn:hover { transform:scale(1.08); }
+
+/* ===== TOAST NOTIFICATIONS ===== */
+#toastContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.toast {
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 14px 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  animation: toastIn 0.35s ease forwards;
+}
+
+/* Red outlined exclamation */
+.toast-icon {
+  width: 22px;
+  height: 22px;
+  border: 2px solid red;
+  border-radius: 50%;
+  color: red;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast.fade-out {
+  animation: toastOut 0.4s ease forwards;
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
 </style>
 </head>
 
@@ -258,7 +323,9 @@ body {
     <button class="more-btn" onclick="window.open('https://discord.com/invite/MqcHwuaYfM', '_blank')">
      Discord
     </button>
-    <button class="more-btn">Online Chat</button>
+    <button class="more-btn" onclick="showToast('Coming soon!')">
+     Online Chat
+    </button>
   </div>
 </div>
 
@@ -273,6 +340,9 @@ body {
     </div>
   </div>
 </div>
+
+<!-- NOTIFICATION CONTAINER -->
+<div id="toastContainer"></div>
 
 <script>
 // ===== PAGE SWITCH =====
@@ -410,6 +480,27 @@ function openLinks() {
 function closeLinks() {
   document.getElementById("linksOverlay").classList.add("hidden");
 }
+
+function showToast(message) {
+  const container = document.getElementById("toastContainer");
+
+  const toast = document.createElement("div");
+  toast.className = "toast";
+
+  toast.innerHTML = `
+    <div class="toast-icon">!</div>
+    <div>${message}</div>
+  `;
+
+  container.appendChild(toast);
+
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.add("fade-out");
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
+}
+
 </script>
 
 </body>
