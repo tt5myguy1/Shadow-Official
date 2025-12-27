@@ -558,36 +558,38 @@ function showToast(message) {
 }
 
 function showSection(name) {
-  const sections = [
-    document.getElementById('gameGrid'),
-    document.getElementById('videoSection'),
-    document.getElementById('internetSection'),
-    document.getElementById('moreSection')
-  ];
+  const gameGrid = document.getElementById('gameGrid');
+  const videoSection = document.getElementById('videoSection');
+  const internetSection = document.getElementById('internetSection');
+  const moreSection = document.getElementById('moreSection');
 
-  // Hide everything safely
-  sections.forEach(sec => {
-    if (sec) sec.style.display = 'none';
-  });
+  // Hide all
+  gameGrid.style.display = 'none';
+  videoSection.style.display = 'none';
+  internetSection.style.display = 'none';
+  moreSection.style.display = 'none';
 
-  // Show the correct section
-  if (name === 'games') {
-    document.getElementById('gameGrid').style.display = 'grid';
-  }
+  // Show selected
+  switch (name) {
+    case 'games':
+      gameGrid.style.display = 'grid';
+      break;
 
-  if (name === 'videos') {
-    document.getElementById('videoSection').style.display = 'block';
-    loadVideos();
-  }
+    case 'videos':
+      videoSection.style.display = 'block';
+      loadVideos();
+      break;
 
-  if (name === 'internet') {
-    document.getElementById('internetSection').style.display = 'block';
-  }
+    case 'internet':
+      internetSection.style.display = 'block';
+      break;
 
-  if (name === 'more') {
-    document.getElementById('moreSection').style.display = 'block';
+    case 'more':
+      moreSection.style.display = 'flex';
+      break;
   }
 }
+
 
 
 
