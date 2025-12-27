@@ -557,6 +557,26 @@ function showToast(message) {
   }, 3000);
 }
 
+function showSection(name) {
+  const gameGrid = document.getElementById('gameGrid');
+  const videoSection = document.getElementById('videoSection');
+  const internetSection = document.getElementById('internetSection');
+  const moreSection = document.getElementById('moreSection');
+
+  // Hide everything first
+  gameGrid.style.display = 'none';
+  videoSection.style.display = 'none';
+  internetSection.style.display = 'none';
+  moreSection.style.display = 'none';
+
+  // Show the requested section
+  if (name === 'games') gameGrid.style.display = 'grid';
+  if (name === 'videos') videoSection.style.display = 'block';
+  if (name === 'internet') internetSection.style.display = 'block';
+  if (name === 'more') moreSection.style.display = 'block';
+}
+
+
 const navIcons = document.querySelectorAll('.nav-emoji');
 
 navIcons[0].onclick = () => showSection('games');
