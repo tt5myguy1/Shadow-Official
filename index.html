@@ -557,48 +557,12 @@ function showToast(message) {
   }, 3000);
 }
 
-function showSection(name) {
-  const gameGrid = document.getElementById('gameGrid');
-  const videoSection = document.getElementById('videoSection');
-  const internetSection = document.getElementById('internetSection');
-  const moreSection = document.getElementById('moreSection');
-
-  // Hide all
-  gameGrid.style.display = 'none';
-  videoSection.style.display = 'none';
-  internetSection.style.display = 'none';
-  moreSection.style.display = 'none';
-
-  // Show selected
-  switch (name) {
-    case 'games':
-      gameGrid.style.display = 'grid';
-      break;
-
-    case 'videos':
-      videoSection.style.display = 'block';
-      loadVideos();
-      break;
-
-    case 'internet':
-      internetSection.style.display = 'block';
-      break;
-
-    case 'more':
-      moreSection.style.display = 'flex';
-      break;
-  }
-}
-
-
-
-
 const navIcons = document.querySelectorAll('.nav-emoji');
 
-navIcons[0].onclick = () => showSection('games');
-navIcons[1].onclick = () => showSection('videos');
-navIcons[2].onclick = () => showSection('internet');
-navIcons[3].onclick = () => showSection('more');
+navIcons[0].onclick = () => showPage('games');
+navIcons[1].onclick = () => showPage('videos');
+navIcons[2].onclick = () => showPage('internet');
+navIcons[3].onclick = () => showPage('more');
 
 </script>
 
