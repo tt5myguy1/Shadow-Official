@@ -280,6 +280,17 @@ body {
   }
 }
 
+.nav-emoji {
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.2s ease;
+}
+
+.nav-emoji:hover {
+  transform: scale(1.25);
+}
+
 </style>
 </head>
 
@@ -287,11 +298,12 @@ body {
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <img src="images/Icons/Bar/Controller.png" class="nav-icon" onclick="showPage('games')">
-  <img src="images/Icons/Bar/TV.jpg" class="nav-icon" onclick="showPage('videos')">
-  <img src="images/Icons/Bar/Internet.png" class="nav-icon" onclick="showPage('internet')">
-  <img src="images/Icons/Bar/Plus.webp" class="nav-icon" onclick="showPage('more')">
+  <div class="nav-emoji" title="Games">🎮</div>
+  <div class="nav-emoji" title="Videos">📺</div>
+  <div class="nav-emoji" title="Internet">🌐</div>
+  <div class="nav-emoji" title="More">➕</div>
 </div>
+
 
 <!-- HEADER -->
 <div class="header">
