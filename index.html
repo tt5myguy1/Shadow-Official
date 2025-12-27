@@ -557,6 +557,13 @@ function showToast(message) {
   }, 3000);
 }
 
+const navIcons = document.querySelectorAll('.nav-emoji');
+
+navIcons[0].onclick = () => showSection('games');
+navIcons[1].onclick = () => showSection('videos');
+navIcons[2].onclick = () => showSection('internet');
+navIcons[3].onclick = () => showSection('more');
+
 </script>
 
 </body>
